@@ -4,23 +4,26 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-else-if="step == 2" @click="publish">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :items="items" />
+  <Container :items="items" :step="step" :url="url" @writeChange="writeChange" />
 
   <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
       <li>
-        <input type="file" id="file" class="inputfile" />
+        <input @change="upload" type="file" id="file" class="inputfile" accept="image/*" />
         <label for="file" class="input-plus">+</label>
       </li>
     </ul>
   </div>
+
+  
 </template>
 
 <script setup>
@@ -40,6 +43,36 @@ const more = () => {
     }).catch(err => {
       console.log(err);
     });
+};
+
+const step = ref(0);
+const url = ref('');
+const writeText = ref('');
+const writeChange = (text) => {
+  writeText.value = text;
+};
+
+const upload = (e) => {
+  let file = e.target.files;
+  step.value += 1;
+  url.value = URL.createObjectURL(file[0]);
+  console.log(url);
+};
+
+// const textContent = ref('');
+const publish = () => {
+  const myData = {
+    name: "Kim Hyun",
+    userImage: "https://placeimg.com/100/100/arch",
+    postImage: url,
+    likes: 36,
+    date: "May 15",
+    liked: false,
+    content: writeText,
+    filter: "perpetua"
+  };
+  items.unshift(myData);
+  step.value = 0;
 };
 </script>
 

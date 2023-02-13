@@ -7,7 +7,7 @@
     <div class="post-body" :style="{ backgroundImage: `url(${postImage})` }"></div>
     <div class="post-content">
       <p>{{ likes }} Likes</p>
-      <p><strong>{{ filter }}</strong> {{ content }}</p>
+      <p><strong>{{ name }}</strong> {{ content }}</p>
       <p class="date">{{ date }}</p>
     </div>
   </div> 
