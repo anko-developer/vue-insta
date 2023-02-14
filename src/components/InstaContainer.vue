@@ -18,11 +18,12 @@
     <template v-else-if="step == 1">
       <div class="upload-image" :style="{ backgroundImage: `url(${url})` }"></div>
       <div class="filters">
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
+        <Filter :filterClass="item" v-for="item in filterItems" :key="item" :url="url">
+          {{ item }}
+          <template #testSlot>
+            새로운빵꾸
+          </template>
+        </Filter>
       </div>
     </template>
 
@@ -30,15 +31,16 @@
     <template v-else-if="step == 2">
       <div class="upload-image" :style="{ backgroundImage: `url(${url})` }"></div>
       <div class="write">
-        <textarea class="write-box" @change="writeChange" v-model="writeData">write!</textarea>
+        <textarea class="write-box" @input="writeChange" v-model="writeData">write!</textarea>
       </div>
     </template>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue';
+import { defineProps, defineEmits, ref, reactive } from 'vue';
 import Post from './InstaPost.vue';
+import Filter from './InstaFilter.vue';
 
 defineProps({
   items: Array,
@@ -52,6 +54,10 @@ const writeData = ref('');
 const writeChange = () => {
   emit('writeChange', writeData);
 };
+
+const filterItems = reactive([ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson", 
+"inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua", 
+"reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"]);
 </script>
 
 <style lang="scss" scoped>

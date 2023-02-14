@@ -12,7 +12,7 @@
 
   <Container :items="items" :step="step" :url="url" @writeChange="writeChange" />
 
-  <button @click="more">더보기</button>
+  <button v-if="step == 0" @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -59,7 +59,6 @@ const upload = (e) => {
   console.log(url);
 };
 
-// const textContent = ref('');
 const publish = () => {
   const myData = {
     name: "Kim Hyun",
