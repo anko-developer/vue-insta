@@ -10,7 +10,7 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :items="items" :step="step" :url="url" @writeChange="writeChange" />
+  <Container :items="$store.state.items" :step="step" :url="url" @writeChange="writeChange" />
 
   <button v-if="step == 0" @click="more">더보기</button>
 
@@ -23,22 +23,22 @@
     </ul>
   </div>
 
-  
+  <p>안녕 {{ $store.state.name }}</p>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
-import postData from '@/api';
+import { ref } from 'vue';
+import { useStore } from 'vuex';
 import axios from 'axios';
 import Container from '@/components/InstaContainer.vue';
 
-const items = reactive(postData);
+const store = useStore();
 const moreNum = ref(0);
 const more = () => {
   axios.get(`https://codingapple1.github.io/vue/more${moreNum.value}.json`)
     .then(response => {
       console.log(response.data);
-      items.push(response.data);
+      store.commit('more', response.data);
       moreNum.value += 1;
     }).catch(err => {
       console.log(err);
@@ -70,7 +70,8 @@ const publish = () => {
     content: writeText,
     filter: "perpetua"
   };
-  items.unshift(myData);
+
+  store.commit('publish', myData);
   step.value = 0;
 };
 </script>

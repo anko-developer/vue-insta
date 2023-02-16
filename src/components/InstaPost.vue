@@ -4,7 +4,7 @@
       <div class="profile" :style="{ backgroundImage: `url(${userImage})` }"></div>
       <span class="profile-name">{{ name }}</span>
     </div>
-    <div class="post-body" :style="{ backgroundImage: `url(${postImage})` }"></div>
+    <div @click="$store.commit('liked', index)" class="post-body" :style="{ backgroundImage: `url(${postImage})` }"></div>
     <div class="post-content">
       <p>{{ likes }} Likes</p>
       <p><strong>{{ name }}</strong> {{ content }}</p>
@@ -16,12 +16,13 @@
 <script setup>
 import { defineProps } from 'vue';
 defineProps({
+  index: [String, Number],
   name: String,
   userImage: String,
   postImage: String,
   likes: [String, Number],
   date: String,
-  liked: Boolean,
+  // liked: Boolean,
   content: String,
   filter: String,
 });

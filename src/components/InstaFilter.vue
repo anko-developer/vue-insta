@@ -1,5 +1,5 @@
 <template>
-  <div @click="fire" :class="filterClass" class="filter-item" :style="{backgroundImage: `url(${url})`}">
+  <div @click="$store.commit('changeFilter', filterClass)" :class="filterClass" class="filter-item" :style="{backgroundImage: `url(${url})`}">
     <slot></slot>
     <slot name="testSlot"></slot>
   </div>

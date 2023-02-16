@@ -3,6 +3,7 @@
     <template v-if="step == 0">
       <Post 
       v-for="(item, index) in items" :key="index"
+      :index="index"
       :name="item.name" 
       :userImage="item.userImage" 
       :postImage="item.postImage" 
@@ -16,7 +17,7 @@
     
     <!-- 필터선택페이지 -->
     <template v-else-if="step == 1">
-      <div class="upload-image" :style="{ backgroundImage: `url(${url})` }"></div>
+      <div class="upload-image" :class="$store.state.filter" :style="{ backgroundImage: `url(${url})` }"></div>
       <div class="filters">
         <Filter :filterClass="item" v-for="item in filterItems" :key="item" :url="url">
           {{ item }}
