@@ -12,7 +12,7 @@
 
   <Container :items="$store.state.items" :step="step" :url="url" @writeChange="writeChange" />
 
-  <button v-if="step == 0" @click="more">더보기</button>
+  <!-- <button v-if="step == 0" @click="more">더보기</button> -->
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -24,26 +24,31 @@
   </div>
 
   <p>안녕 {{ $store.state.name }}</p>
+
+  <p>{{ $store.state.more }}</p>
+  <button v-if="step == 0" @click="$store.dispatch('getData')">더보기 버튼</button>
+
+  <p>{{ nameComputed }}</p>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
-import axios from 'axios';
+// import axios from 'axios';
 import Container from '@/components/InstaContainer.vue';
 
 const store = useStore();
-const moreNum = ref(0);
-const more = () => {
-  axios.get(`https://codingapple1.github.io/vue/more${moreNum.value}.json`)
-    .then(response => {
-      console.log(response.data);
-      store.commit('more', response.data);
-      moreNum.value += 1;
-    }).catch(err => {
-      console.log(err);
-    });
-};
+// const moreNum = ref(0);
+// const more = () => {
+//   axios.get(`https://codingapple1.github.io/vue/more${moreNum.value}.json`)
+//     .then(response => {
+//       console.log(response.data);
+//       store.commit('more', response.data);
+//       moreNum.value += 1;
+//     }).catch(err => {
+//       console.log(err);
+//     });
+// };
 
 const step = ref(0);
 const url = ref('');
@@ -74,6 +79,10 @@ const publish = () => {
   store.commit('publish', myData);
   step.value = 0;
 };
+
+const nameComputed = computed(() => {
+  return store.state.name;
+});
 </script>
 
 <style lang="scss" scoped>
