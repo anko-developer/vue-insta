@@ -1,4 +1,5 @@
 <template>
+  <TestComponent v-model:test="testValue" :str="testValue"></TestComponent>
   <div class="header">
     <ul class="header-button-left">
       <li>Cancel</li>
@@ -36,6 +37,9 @@ import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 // import axios from 'axios';
 import Container from '@/components/InstaContainer.vue';
+import TestComponent from '@/components/TestComponent.vue';
+
+const testValue = ref(null);
 
 const store = useStore();
 // const moreNum = ref(0);
